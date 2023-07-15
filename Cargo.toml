@@ -1,0 +1,14 @@
+[package]
+name = "ws-auth"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.6.18", features = ["ws"] }
+axum-login = "0.5.0"
+rand = { version = "0.8", features = ["min_const_gen"] }
+tokio = { version = "1.29.1", features = ["full"] }
+tower = "0.4.13"
+tower-http = { version = "0.4.1", features = ["cors"] }
