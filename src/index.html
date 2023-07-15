@@ -13,7 +13,7 @@
 
             const ws = new WebSocket("ws://localhost:3000/ws");
             ws.onerror = (e) => console.error(e);
-            ws.onmessage = (e) => console.log(e);
+            ws.onmessage = (e) => console.log(e.data);
         })();
 
     </script>

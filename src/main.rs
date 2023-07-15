@@ -67,6 +67,7 @@ async fn main() {
     let app = Router::new()
         .route("/ws", get(websocket))
         .route_layer(RequireAuthorizationLayer::<usize, User>::login())
+        .route("/", get(index))
         .route("/login", get(login_handler))
         .route("/logout", get(logout_handler))
         .layer(auth_layer)
@@ -102,15 +103,19 @@ async fn handle_socket(mut socket: WebSocket, user: User) {
     let mut i = 0;
 
     loop {
+        i += 1;
+
         if socket
-            .send(Message::Ping(vec![i, user.get_id().try_into().unwrap()]))
+            .send(Message::Text(format!("Message {} for {}!", i, user.name)))
             .await
             .is_err()
         {
             return;
         }
 
-        i += 1;
+        if i >= 20 {
+            return;
+        }
 
         tokio::time::sleep(std::time::Duration::from_millis(500)).await;
     }
